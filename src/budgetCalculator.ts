@@ -1,8 +1,8 @@
-const calculateBudgetStatus = (totalExpenses: number, budget: number) => {
-    const actualBudget : number = budget - totalExpenses;
-    if(actualBudget < budget*80/100) {
+const calculateBudgetStatus = (totalExpenses: number, budget: number): ("Sota pressupost" | "Dins pressupost" | "Sobre pressupost" ) => {
+    
+    if(totalExpenses < budget*80/100) {
         return "Sota pressupost";
-    } else if((actualBudget >= budget*80/100) && (actualBudget <= budget) ) {
+    } else if((totalExpenses >= budget*80/100) && (totalExpenses <= budget) ) {
         return "Dins pressupost";
     }
     return "Sobre pressupost";
