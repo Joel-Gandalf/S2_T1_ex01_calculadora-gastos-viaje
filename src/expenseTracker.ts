@@ -10,18 +10,24 @@ interface ExpenseReport {
 
 const generateExpenseReport = (dailyExpenses: number[], dailyBudget: number): ExpenseReport => {
 
+    const hasNegativeExpenses = dailyExpenses.some(num => num < 0);
+    if(hasNegativeExpenses) {
+        throw new Error("No se permiten gastos con valores negativos");
+    }
+
     const average: number = dailyExpenses.reduce((acumulator, num) => acumulator + num, 0) / dailyExpenses.length;
-    
-    const calculateRating  = () => {
+
+    const calculateRating = () => {
         if (average <= dailyBudget) return 1
         else if (average <= dailyBudget * 1.2) return 2
         return 3
     }
+
     const calculatefeedback = () => {
-            if (calculateRating() === 1) return "Excel·lent gestió!"
-            else if (calculateRating() === 2) return "Correcte, però ajustat"
-            return "Pot millorar"
-        }
+        if (calculateRating() === 1) return "Excel·lent gestió!"
+        else if (calculateRating() === 2) return "Correcte, però ajustat"
+        return "Pot millorar"
+    }
 
     const expenseReport: ExpenseReport = {
         travelDays: dailyExpenses.length,
@@ -38,7 +44,7 @@ const generateExpenseReport = (dailyExpenses: number[], dailyBudget: number): Ex
         //     return 3
         // })(),
         rating: calculateRating(),
-        feedback:  calculatefeedback()
+        feedback: calculatefeedback()
     }
     return expenseReport
 
